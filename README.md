@@ -52,3 +52,17 @@ garantindo que todas as variáveis tenham média 0 e desvio padrão 1. Assim, co
 ### CONCLUSÃO 
 A acurácia de 92% alcançada pelo modelo com os dados normalizados não apenas valida a escolha da arquitetura da Rede Neural Artificial, mas também demonstra um potencial significativo para auxiliar na triagem e no diagnóstico precoce de doenças cardíacas. A normalização dos dados foi um fator decisivo, não só por otimizar o processo de treinamento e garantir a estabilidade do modelo, mas também por aumentar a robustez e a capacidade de generalização do modelo para dados futuros e não vistos. Em um cenário real, onde a consistência e a confiabilidade são cruciais, essa capacidade de generalização é tão importante quanto a acurácia bruta, pois assegura que o modelo manterá seu bom desempenho mesmo com novas informações.
 
+![resultadoFIA](https://github.com/user-attachments/assets/a45a0cc0-bcf1-4381-a876-6f4c4e091c3b)
+
+Matriz de Confusão: Distribuição dos Acertos e Erros
+A matriz de confusão apresenta a contagem real das previsões:
+
+Verdadeiros Positivos (VP = 100): O modelo identificou corretamente 100 pacientes que, de fato, tinham a doença (Com Doença (1)).
+
+Verdadeiros Negativos (VN = 90): O modelo identificou corretamente 90 pacientes que, de fato, não tinham a doença (Sem Doença (0)).
+
+Falsos Negativos (FN = 5): Este é o erro mais crítico no diagnóstico. O modelo deixou de detectar a doença em apenas 5 pacientes (classificando-os incorretamente como 'Sem Doença').
+
+Falsos Positivos (FP = 10): O modelo classificou erroneamente 10 pacientes como tendo a doença quando, na verdade, não tinham.
+
+
