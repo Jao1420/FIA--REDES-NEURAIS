@@ -41,6 +41,5 @@ os atributos contínuos do dataset, como chol (colesterol, com valores de 120 a 
 Ele subtrai a média da coluna (µ) de cada valor (x).
 Ele divide o resultado pelo desvio padrão da coluna (σ).
 $$z = \frac{x - \mu}{\sigma}$$
-z = (x - u)/σ
 Isso transforma todos os atributos contínuos para que tenham uma média 0 e um desvio padrão 1. O resultado é um dataset onde todas as variáveis contribuem de forma justa e equilibrada para o treinamento do modelo, melhorando sua performance e estabilidade.
 
