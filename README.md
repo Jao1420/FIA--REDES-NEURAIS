@@ -2,44 +2,53 @@
 ## Repositório destinado à entrega do trabalho de Fundamentos de Inteligência Artificial, com o tema: Classificação de Doenças Cardíacas
 ### PROBLEMATICA:
 As doenças cardiovasculares causam, em média, a morte de pelo menos 400 mil brasileiros por ano, de acordo com a Agência Brasil e a Biblioteca Virtual em Saúde (BVS), sendo a doença mais mortal do território nacional e de nível mundial. A identificação antecipada dos fatores de risco é indispensável. À luz disso, o projeto se dedica a construir um classificador que indica a presença ou ausência desse condutor de falecimentos em níveis nacional e internacional.
-### CONTEÚDO
-Dentro desse repositório está presente um arquivo (.ipynb) com todo código feito para o desenvolvimento do trabalho, comteplado com os passos, as visualizações e a análise dos resultados.
+### 📁 CONTEÚDO 
+Notebook (.ipynb) com todo o desenvolvimento do modelo;
 
-### VISÃO GERAL
-O dataset carregado (do arquivo heart.csv.csv) possui 1025 linhas e 14 colunas.
-Com base na visualização dos dados, podemos classificar os atributos da seguinte forma:
-## target (Alvo/Resultado)
-Descrição: A variável que o modelo tentará prever.
-Valores: 0 = Ausência de doença cardíaca; 1 = Presença de doença cardíaca.
-### ANÁLISE DE PADRÕES DE VARIÁVEIS 
-Os histogramas (gráficos de distribuição) das 10 primeiras variáveis mostram padrões importantes:
-Distribuição Normal: As variáveis age (idade), trestbps (pressão arterial) e thalach (frequência cardíaca máx) têm uma distribuição que se assemelha a uma curva normal (formato de sino), que é o esperado para características biológicas.
-Dados Assimétricos (Skewed):
-chol (colesterol) apresenta uma assimetria à direita (right-skew), com uma "cauda" longa de valores mais altos, indicando a presença de alguns pacientes com colesterol muito acima da média.
-oldpeak (depressão do ST) é fortemente assimétrico à direita. A grande maioria dos pacientes tem o valor 0 para esta medida.
-Dados Categóricos Desbalanceados:
-sex: O dataset possui significativamente mais pacientes do sexo masculino (1) do que feminino (0).
-cp (tipo de dor): A maioria absoluta dos pacientes se concentra no tipo 0.
-fbs (açúcar no sangue): A grande maioria dos pacientes não tem açúcar elevado em jejum (classe 0).
-### ANÁLISE DE CORRELAÇÃO(HEATMAP)
-A matriz de correlação (heatmap) é a ferramenta mais importante no notebook para entender quais atributos estão mais relacionados à presença de doença cardíaca (target).
-Correlações Positivas com target: Valores mais próximos de +1 indicam que, quando o atributo aumenta, a chance de ter a doença (target=1) aumenta.
-cp (0.43): O tipo de dor no peito é um forte indicador.
-thalach (0.42): Uma frequência cardíaca máxima mais alta atingida no teste está associada à doença.
-slope (0.35): A inclinação do segmento ST também é um indicador relevante.
-Correlações Negativas com target: Valores mais próximos de -1 indicam que, quando o atributo aumenta, a chance de ter a doença (target=1) diminui.
-exang (-0.44): A presença de angina induzida por exercício (valor 1) está fortemente ligada à ausência de doença.
-oldpeak (-0.44): Valores baixos de depressão do ST estão associados à doença (valores altos estão associados à ausência dela).
-ca (-0.39): Um número menor de vasos principais coloridos está ligado à doença.
-thal (-0.34): O resultado do teste de tálio também é um forte preditor negativo.
-Multicolinearidade (Preditor vs. Preditor): O notebook também nos permite ver se os próprios atributos preditores estão correlacionados (o que pode ser um problema para alguns modelos). As correlações mais fortes são oldpeak vs. slope (-0.58) e thalach vs. slope (0.40). Nenhuma delas é tão alta (ex: > 0.8) a ponto de ser um problema grave.
+Dataset original (heart.csv);
+
+Arquivo de pesos treinados (best_model_improved.weights.h5);
+
+Documentação e análise dos resultados obtidos.
+
+### 📊 VISÃO GERAL DO DATASET
+1025 linhas
+
+14 atributos (idade, sexo, pressão arterial, colesterol, frequência cardíaca máxima etc.)
+
+1 variável alvo (target):
+
+0 → ausência de doença cardíaca
+
+1 → presença de doença cardíaca
+## 🎯 target (Alvo/Resultado)
+A variável que o modelo tentará prever.
+
+Valores: 0 = Ausência de doença cardíaca;
+
+1 = Presença de doença cardíaca.
+### 🔍 ANÁLISE DE PADRÕES DE VARIÁVEIS 
+Os histogramas mostraram três tipos principais de comportamento nas variáveis do dataset. Algumas, como age, trestbps e thalach, apresentaram distribuição próxima da normal, o que é comum em medidas biológicas. Outras variáveis exibiram assimetria à direita, como chol, que possui alguns valores muito altos, e oldpeak, em que a maioria dos pacientes tem valor 0.
+Também foi possível observar desbalanceamento em variáveis categóricas, especialmente em sex (predominância de homens), cp (maioria absoluta na classe 0) e fbs (quase todos com valor 0).
+
+### 🔍 ANÁLISE DE CORRELAÇÃO(HEATMAP)
+A matriz de correlação evidenciou quais atributos têm relação mais forte com o alvo. Entre as correlações positivas, destacam-se cp (0.43), thalach (0.42) e slope (0.35), indicando que valores maiores tendem a estar associados à presença da doença.
+Já as correlações negativas mais relevantes foram exang (-0.44), oldpeak (-0.44), ca (-0.39) e thal (-0.34), sugerindo que seus valores elevados estão ligados à ausência da condição cardíaca.
+A análise também verificou multicolinearidade entre preditores: as relações mais fortes foram oldpeak × slope (-0.58) e thalach × slope (0.40), mas nenhuma intensa o suficiente para prejudicar o modelo.
 
 ### NORMALIZAÇÃO
-Uma etapa crítica de pré-processamento identificada neste trabalho é a normalização dos dados. 
-A ferramenta utilizada para isso é o StandardScaler da biblioteca Scikit-learn.O StandardScaler é um padronizador que aplica uma transformação estatística conhecida como Padronização (Standardization).A necessidade desta técnica é clara ao observar a análise de distribuição (vista nos histogramas): 
-os atributos contínuos do dataset, como chol (colesterol, com valores de 120 a 550+) e oldpeak (depressão do ST, com valores de 0 a 6), existem em escalas numéricas muito diferentes.Algoritmos que calculam distâncias (como k-NN e SVM) ou que utilizam gradientes (como Regressão Logística) seriam enviesados por essas escalas. Eles dariam um peso desproporcional às variáveis com magnitudes maiores (como chol), independentemente de sua importância real para prever a doença cardíaca.Para corrigir isso, o StandardScaler padroniza cada atributo (feature) da seguinte forma:
-Ele subtrai a média da coluna (µ) de cada valor (x).
-Ele divide o resultado pelo desvio padrão da coluna (σ).
-$$z = \frac{x - \mu}{\sigma}$$
-Isso transforma todos os atributos contínuos para que tenham uma média 0 e um desvio padrão 1. O resultado é um dataset onde todas as variáveis contribuem de forma justa e equilibrada para o treinamento do modelo, melhorando sua performance e estabilidade.
+A normalização foi uma etapa essencial, realizada com o StandardScaler, que aplica padronização estatística. Isso foi necessário devido às grandes diferenças de escala entre variáveis contínuas, como chol (valores altos) e oldpeak (valores baixos).
+Sem essa padronização, modelos baseados em distância ou gradiente seriam influenciados de forma injusta pelas variáveis de maior magnitude. O StandardScaler transforma cada valor para:
+
+$$
+z = \frac{x - \mu}{\sigma}
+$$
+
+​
+
+
+garantindo que todas as variáveis tenham média 0 e desvio padrão 1. Assim, contribuem de maneira equilibrada no treinamento, aumentando a estabilidade e o desempenho do modelo.
+
+### CONCLUSÃO 
+A acurácia de 92% alcançada pelo modelo com os dados normalizados não apenas valida a escolha da arquitetura da Rede Neural Artificial, mas também demonstra um potencial significativo para auxiliar na triagem e no diagnóstico precoce de doenças cardíacas. A normalização dos dados foi um fator decisivo, não só por otimizar o processo de treinamento e garantir a estabilidade do modelo, mas também por aumentar a robustez e a capacidade de generalização do modelo para dados futuros e não vistos. Em um cenário real, onde a consistência e a confiabilidade são cruciais, essa capacidade de generalização é tão importante quanto a acurácia bruta, pois assegura que o modelo manterá seu bom desempenho mesmo com novas informações.
 
