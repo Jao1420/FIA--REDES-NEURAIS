@@ -5,7 +5,7 @@ João Ricardo,
 Sara Oliveira, 
 João Victor,
 Rodrigo Cunha,
-Vinicius Oliveira
+Vinicius Oliveira e
 Bruno José
 ### PROBLEMATICA:
 As doenças cardiovasculares causam, em média, a morte de pelo menos 400 mil brasileiros por ano, de acordo com a Agência Brasil e a Biblioteca Virtual em Saúde (BVS), sendo a doença mais mortal do território nacional e de nível mundial. A identificação antecipada dos fatores de risco é indispensável. À luz disso, o projeto se dedica a construir um classificador que indica a presença ou ausência desse condutor de falecimentos em níveis nacional e internacional.
